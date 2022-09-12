@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Emoji as EmojiType } from "./emoji"
+	import type { Emoji as EmojiType } from './emoji';
 	import Emoji from './Emoji.svelte';
 
 	export let name = '';
 	export let withTabs = true;
-	export let emojis: EmojiType[];
+	export let emojis: EmojiType[] = [];
 </script>
 
 <h3>{name}</h3>

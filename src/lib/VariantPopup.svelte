@@ -5,10 +5,11 @@
 	import Icon from 'fa-svelte';
 
 	import Emoji from './Emoji.svelte';
+	import type { Emoji as EmojiType } from "./emoji"
 
-	export let variants: any[];
+	export let variants: { [key: string]: EmojiType } = {};
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{close: void}>();
 
 	function onClickClose() {
 		dispatch('close');

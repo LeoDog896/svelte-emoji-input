@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Emoji } from "./emoji";
+	import type { Emoji } from './emoji';
 	export let emoji: Emoji | null;
 </script>
 

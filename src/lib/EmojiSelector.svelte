@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import type { Writable } from "svelte/store"
 
 	import { faBuilding, faFlag, faLightbulb, faSmile } from '@fortawesome/free-regular-svg-icons';
 	import { faCat, faCoffee, faFutbol, faHistory, faMusic } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +8,7 @@
 	import Popper from 'popper.js';
 	import { localStore } from 'svelte-persistent';
 	import writableDerived from 'svelte-writable-derived';
+	import type { Emoji as EmojiType } from "$lib/emoji"
 
 	import ClickOutside from 'svelte-click-outside';
 	import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs';
@@ -26,21 +28,21 @@
 
 	let triggerButtonEl: HTMLButtonElement;
 	let pickerEl: HTMLDivElement;
-	let popper;
+	let popper: Popper;
 
 	let variantsVisible = false;
 	let pickerVisible = false;
 
-	let variants;
-	let currentEmoji;
+	let variants: { [key: string]: EmojiType } = {};
+	let currentEmoji: EmojiType;
 	let searchText: string;
-	let recentEmojis = writableDerived(
+	let recentEmojis: Writable<EmojiType[]> = writableDerived(
 		localStore('svelte-emoji-picker-recent', '[]'),
 		(json) => JSON.parse(json),
 		(json) => JSON.stringify(json)
 	);
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{emoji: EmojiType}>();
 
 	const emojiCategories: { [key: string]: any } = {};
 	emojiData.forEach((emoji) => {
@@ -53,7 +55,7 @@
 	});
 
 	const categoryOrder = [
-		'Smileys & People',
+		'Smileys & Emotion',
 		'Animals & Nature',
 		'Food & Drink',
 		'Activities',
@@ -64,7 +66,7 @@
 	];
 
 	const categoryIcons = {
-		'Smileys & People': faSmile,
+		'Smileys & Emotion': faSmile,
 		'Animals & Nature': faCat,
 		'Food & Drink': faCoffee,
 		Activities: faFutbol,
@@ -94,7 +96,7 @@
 		}
 	}
 
-	function onKeyDown(event) {
+	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
 			hidePicker();
 		}
@@ -128,7 +130,7 @@
 		}
 	}
 
-	function saveRecent(emoji) {
+	function saveRecent(emoji: EmojiType) {
 		$recentEmojis = [emoji, ...$recentEmojis.filter((recent) => recent.key !== emoji.key)].slice(
 			0,
 			maxRecents

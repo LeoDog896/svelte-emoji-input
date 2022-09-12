@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
 	import { faFrown } from '@fortawesome/free-regular-svg-icons';
@@ -10,10 +10,12 @@
 
 	export let searchText = '';
 
-	const dispatch = createEventDispatcher();
+	$: processedSearchText = searchText.toLowerCase();
+
+	const dispatch = createEventDispatcher<{emojihover: null}>();
 
 	$: searchResults = emojiData.filter((emoji) =>
-		emoji.names.find((name) => name.indexOf(searchText) >= 0)
+		emoji.names.find((name) => name.indexOf(processedSearchText) >= 0)
 	);
 
 	function onMouseOver() {

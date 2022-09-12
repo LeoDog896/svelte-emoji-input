@@ -1,6 +1,6 @@
-const { writeFileSync } = require('fs');
+import { writeFileSync, readFileSync } from 'fs';
 
-const rawData = require('emoji-datasource');
+const rawData = JSON.parse(readFileSync('./node_modules/emoji-datasource/emoji.json', 'utf8'));
 
 function getEmoji(unified) {
 	const chars = unified.split('-');

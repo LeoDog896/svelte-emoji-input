@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
 	import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +6,7 @@
 
 	export let searchText = '';
 
-	let searchField;
+	let searchField: HTMLInputElement;
 
 	onMount(() => {
 		searchField.focus();
@@ -17,7 +17,7 @@
 		searchField.focus();
 	}
 
-	function handleKeyDown(event) {
+	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && searchText) {
 			clearSearchText();
 			event.stopPropagation();

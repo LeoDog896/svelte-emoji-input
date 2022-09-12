@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher, onMount, tick } from 'svelte';
 
 	import { faBuilding, faFlag, faLightbulb, faSmile } from '@fortawesome/free-regular-svg-icons';
@@ -24,8 +24,8 @@
 	export let maxRecents = 50;
 	export let autoClose = true;
 
-	let triggerButtonEl;
-	let pickerEl;
+	let triggerButtonEl: HTMLButtonElement;
+	let pickerEl: HTMLDivElement;
 	let popper;
 
 	let variantsVisible = false;
@@ -33,7 +33,7 @@
 
 	let variants;
 	let currentEmoji;
-	let searchText;
+	let searchText: string;
 	let recentEmojis = writableDerived(
 		localStore('svelte-emoji-picker-recent', '[]'),
 		(json) => JSON.parse(json),
@@ -42,7 +42,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const emojiCategories = {};
+	const emojiCategories: { [key: string]: any } = {};
 	emojiData.forEach((emoji) => {
 		let categoryList = emojiCategories[emoji.category];
 		if (!categoryList) {
@@ -74,7 +74,7 @@
 		Flags: faFlag
 	};
 
-	function hidePicker(event) {
+	function hidePicker() {
 		pickerVisible = false;
 		searchText = '';
 		popper.destroy();

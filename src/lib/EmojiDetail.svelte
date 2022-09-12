@@ -1,5 +1,6 @@
-<script>
-	export let emoji;
+<script lang="ts">
+  import type { Emoji } from "./emoji";
+	export let emoji: Emoji | null;
 </script>
 
 <div class="svelte-emoji-picker__emoji-detail">

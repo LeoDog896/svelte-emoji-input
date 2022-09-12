@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
 	import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -6,7 +6,7 @@
 
 	import Emoji from './Emoji.svelte';
 
-	export let variants;
+	export let variants: any[];
 
 	const dispatch = createEventDispatcher();
 
@@ -14,7 +14,7 @@
 		dispatch('close');
 	}
 
-	function onClickContainer(event) {
+	function onClickContainer() {
 		dispatch('close');
 	}
 </script>

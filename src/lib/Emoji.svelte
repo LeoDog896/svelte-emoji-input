@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
+  import type { Emoji } from "./emoji"
 	import { createEventDispatcher } from 'svelte';
 
-	export let emoji;
+	export let emoji: Emoji;
 
 	const dispatch = createEventDispatcher();
 
@@ -18,7 +19,7 @@
 	}
 </script>
 
-<button on:mouseover={onMouseOver} on:mouseout={onMouseOut} on:click={onClick}>{emoji.emoji}</button
+<button on:mouseover={onMouseOver} on:focus={onMouseOver} on:blur={onMouseOut} on:mouseout={onMouseOut} on:click={onClick}>{emoji.emoji}</button
 >
 
 <style>

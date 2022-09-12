@@ -1,11 +1,11 @@
-# svelte-emoji-selector
+# svelte-emoji-input
 
 Svelte component for picking emojis ⚡️
 
-![Screenshot](https://raw.githubusercontent.com/joeattardi/svelte-emoji-selector/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/LeoDog896/svelte-emoji-input/master/screenshot.png)
 
 ## Demo
-[https://joeattardi.github.io/svelte-emoji-selector/](https://joeattardi.github.io/svelte-emoji-selector/)
+https://leodog896.github.io/svelte-emoji-input/
 
 ## Features
  - Emoji search
@@ -14,7 +14,9 @@ Svelte component for picking emojis ⚡️
 
 ## Installation
 
-    npm install --save svelte-emoji-selector
+```bash
+npm install --save-dev svelte-emoji-selector
+```
 
 ## Basic Usage
 

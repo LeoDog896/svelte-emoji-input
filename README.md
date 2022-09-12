@@ -5,12 +5,14 @@ Svelte component for picking emojis ⚡️
 ![Screenshot](https://raw.githubusercontent.com/LeoDog896/svelte-emoji-input/master/screenshot.png)
 
 ## Demo
+
 https://leodog896.github.io/svelte-emoji-input/
 
 ## Features
- - Emoji search
- - Skin tone variation selector
- - Recently used emojis
+
+- Emoji search
+- Skin tone variation selector
+- Recently used emojis
 
 ## Installation
 
@@ -28,17 +30,17 @@ Here is a simple example:
 
 ```html
 <script>
-  import EmojiSelector from 'svelte-emoji-selector';
+	import EmojiSelector from 'svelte-emoji-selector';
 
-  let textContent = '';
+	let textContent = '';
 
-  function onEmoji(event) {
-    textContent += event.detail;
-  }
+	function onEmoji(event) {
+		textContent += event.detail;
+	}
 </script>
 
-<input bind:value={textContent} type="text">
-<EmojiSelector on:emoji={onEmoji} />
+<input bind:value="{textContent}" type="text" />
+<EmojiSelector on:emoji="{onEmoji}" />
 ```
 
 ## Props

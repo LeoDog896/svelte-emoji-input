@@ -1880,6 +1880,11 @@ svelte-hmr@^0.14.12:
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.12.tgz#a127aec02f1896500b10148b2d4d21ddde39973f"
   integrity sha512-4QSW/VvXuqVcFZ+RhxiR8/newmwOCTlbYIezvkeN6302YFRE8cXy0naamHcjz8Y9Ce3ITTZtrHrIL0AGfyo61w==
 
+svelte-persistent@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/svelte-persistent/-/svelte-persistent-0.0.1.tgz#e1cd1cbf385366bb1e7bd886095ee36a4f2f3676"
+  integrity sha512-LiySADUF5vEDsTp11BqeHpn8HHaVhcB2v2m1VgSGtmvs88tXJzByun42hQUODe1z1HBpt3aKCYAWXqVJTsOpIA==
+
 svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.6:
   version "4.10.7"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.10.7.tgz#3626de472f51ffe20c9bc71eff5a3da66797c362"
@@ -1896,6 +1901,11 @@ svelte-tabs@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/svelte-tabs/-/svelte-tabs-1.1.0.tgz#093c5fdac57cbb0e6ba81e717d68fb9da7239208"
   integrity sha512-bCynxgET2uvqpB6xf/dVyqHjzmumRURQyh2QqXlrki8NxzO7h2WghF8qgpb5qeB5NTX1bMU+9Q5Hf5ey2WLaMg==
+
+svelte-writable-derived@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/svelte-writable-derived/-/svelte-writable-derived-2.1.5.tgz#c2fc5cbaf13ad6c8a41facd390ec80cd24397920"
+  integrity sha512-g26/W1iWj7FlLwaggNwXxHwMSf70/bHAYcpBT/EijijjakCSU9/PXmn31fL/kw2P1SzVEU6ayyCFuNYqTY3RUw==
 
 svelte@^3.44.0:
   version "3.50.1"

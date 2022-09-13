@@ -3,7 +3,7 @@
 	import type { Writable } from "svelte/store"
 
 	import { faBuilding, faFlag, faLightbulb, faSmile } from '@fortawesome/free-regular-svg-icons';
-	import { faCat, faCoffee, faFutbol, faHistory, faMusic } from '@fortawesome/free-solid-svg-icons';
+	import { faCat, faCoffee, faFutbol, faHistory, faMusic, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 	import Icon from 'fa-svelte';
 	import Popper from 'popper.js';
 	import { localStore } from 'svelte-persistent';
@@ -65,7 +65,7 @@
 		'Flags'
 	];
 
-	const categoryIcons = {
+	const categoryIcons: { [key: string]: IconDefinition } = {
 		'Smileys & Emotion': faSmile,
 		'Animals & Nature': faCat,
 		'Food & Drink': faCoffee,

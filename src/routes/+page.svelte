@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import EmojiSelector from '$lib/EmojiSelector.svelte';
 
 	let textContent = '';
 
-	function onEmoji(event) {
+	function onEmoji(event: CustomEvent<string>) {
 		textContent += event.detail;
 	}
 </script>

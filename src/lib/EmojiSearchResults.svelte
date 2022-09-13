@@ -6,7 +6,7 @@
 
 	import EmojiList from './EmojiList.svelte';
 
-	import emojiData from './data/emoji.js';
+	import emojiData from './data/emoji.json';
 
 	export let searchText = '';
 
@@ -14,20 +14,24 @@
 
 	const dispatch = createEventDispatcher<{emojihover: null}>();
 
-	$: searchResults = emojiData.filter((emoji) =>
-		emoji.names.find((name) => name.indexOf(processedSearchText) >= 0)
-	);
+	$: searchResults = emojiData.filter((emoji) => {
+    if (emoji.names) {
+      return emoji.names.find(name => name.includes(processedSearchText))
+    } else {
+      emoji.name.includes(processedSearchText)
+    }
+	});
 
 	function onMouseOver() {
 		dispatch('emojihover', null);
 	}
 </script>
 
-<div class="svelte-emoji-picker__search-results">
+<div class="search-results">
 	{#if searchResults.length}
 		<EmojiList emojis={searchResults} withTabs={false} on:emojihover on:emojiclick />
 	{:else}
-		<div class="svelte-emoji-picker__no-results" on:mouseover={onMouseOver} on:focus={onMouseOver}>
+		<div class="no-results" on:mouseover={onMouseOver} on:focus={onMouseOver}>
 			<div class="icon"><Icon icon={faFrown} /></div>
 			<h3>No emojis found.</h3>
 		</div>
@@ -35,26 +39,26 @@
 </div>
 
 <style>
-	.svelte-emoji-picker__search-results {
+	.search-results {
 		padding: 0.25em;
 		height: 15rem;
 	}
 
-	.svelte-emoji-picker__search-results h3 {
+	.search-results h3 {
 		margin: 0;
 		font-size: 0.9em;
 		margin: 0 auto;
 		color: #999999;
 	}
 
-	.svelte-emoji-picker__no-results {
+	.no-results {
 		height: 15rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 	}
 
-	.svelte-emoji-picker__no-results .icon {
+	.no-results .icon {
 		margin: 0 auto;
 		font-size: 3em;
 		color: #999999;

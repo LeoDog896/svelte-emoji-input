@@ -5,9 +5,9 @@
 	import Icon from 'fa-svelte';
 
 	import Emoji from './Emoji.svelte';
-	import type { Emoji as EmojiType } from "./emoji"
+	import type { SubEmoji } from "./emoji"
 
-	export let variants: { [key: string]: EmojiType } = {};
+	export let variants: { [key: string]: SubEmoji } = {};
 
 	const dispatch = createEventDispatcher<{close: void}>();
 
@@ -22,8 +22,8 @@
 
 <div class="svelte-emoji-picker__variants-container" on:click={onClickContainer}>
 	<div class="svelte-emoji-picker__variants">
-		{#each Object.keys(variants) as variant}
-			<Emoji emoji={variants[variant]} on:emojiclick />
+		{#each Object.values(variants) as variant}
+			<Emoji emoji={variant} on:emojiclick />
 		{/each}
 		<div class="close-button" role="button" on:click={onClickClose}>
 			<Icon icon={faTimes} />

@@ -20,18 +20,17 @@
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && searchText) {
 			clearSearchText();
-			event.stopPropagation();
 		}
 	}
 </script>
 
-<div class="svelte-emoji-picker__search">
+<div class="search">
 	<input
 		type="text"
 		placeholder="Search emojis..."
 		bind:value={searchText}
 		bind:this={searchField}
-		on:keydown={handleKeyDown}
+		on:keydown|stopPropagation={handleKeyDown}
 	/>
 
 	{#if searchText}
@@ -44,17 +43,17 @@
 </div>
 
 <style>
-	.svelte-emoji-picker__search {
+	.search {
 		padding: 0.25em;
 		position: relative;
 	}
 
-	.svelte-emoji-picker__search input {
+	.search input {
 		width: 100%;
 		border-radius: 5px;
 	}
 
-	.svelte-emoji-picker__search input:focus {
+	.search input:focus {
 		outline: none;
 		border-color: #4f81e5;
 	}

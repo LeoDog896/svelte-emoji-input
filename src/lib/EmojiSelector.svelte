@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import { createEventDispatcher, tick } from 'svelte';
 	import type { Writable } from "svelte/store"
 
 	import { faBuilding, faFlag, faLightbulb, faSmile } from '@fortawesome/free-regular-svg-icons';
@@ -8,7 +8,7 @@
 	import Popper from 'popper.js';
 	import { localStore } from 'svelte-persistent';
 	import writableDerived from 'svelte-writable-derived';
-	import type { Emoji as EmojiType } from "$lib/emoji"
+	import type { Emoji as EmojiType, SubEmoji } from "$lib/emoji"
 
 	import ClickOutside from 'svelte-click-outside';
 	import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs';
@@ -19,7 +19,7 @@
 	import EmojiSearchResults from './EmojiSearchResults.svelte';
 	import VariantPopup from './VariantPopup.svelte';
 
-	import emojiData from './data/emoji.js';
+	import emojiData from './data/emoji.json';
 
 	const smileIcon = faSmile;
 
@@ -33,18 +33,18 @@
 	let variantsVisible = false;
 	let pickerVisible = false;
 
-	let variants: { [key: string]: EmojiType } = {};
-	let currentEmoji: EmojiType;
+	let variants: { [key: string]: SubEmoji } = {};
+	let currentEmoji: EmojiType | SubEmoji | null;
 	let searchText: string;
-	let recentEmojis: Writable<EmojiType[]> = writableDerived(
+	let recentEmojis: Writable<(EmojiType | SubEmoji)[]> = writableDerived(
 		localStore('svelte-emoji-picker-recent', '[]'),
 		(json) => JSON.parse(json),
 		(json) => JSON.stringify(json)
 	);
 
-	const dispatch = createEventDispatcher<{emoji: EmojiType}>();
+	const dispatch = createEventDispatcher<{emoji: string}>();
 
-	const emojiCategories: { [key: string]: any } = {};
+	const emojiCategories: { [key: string]: EmojiType[] } = {};
 	emojiData.forEach((emoji) => {
 		let categoryList = emojiCategories[emoji.category];
 		if (!categoryList) {
@@ -102,11 +102,11 @@
 		}
 	}
 
-	function showEmojiDetails(event) {
+	function showEmojiDetails(event: CustomEvent<EmojiType | SubEmoji | null>) {
 		currentEmoji = event.detail;
 	}
 
-	function onEmojiClick(event) {
+	function onEmojiClick(event: CustomEvent<EmojiType | SubEmoji>) {
 		if (event.detail.variants) {
 			variants = event.detail.variants;
 			variantsVisible = true;
@@ -120,7 +120,7 @@
 		}
 	}
 
-	function onVariantClick(event) {
+	function onVariantClick(event: CustomEvent<EmojiType | SubEmoji>) {
 		dispatch('emoji', event.detail.emoji);
 		saveRecent(event.detail);
 		hideVariants();
@@ -130,8 +130,8 @@
 		}
 	}
 
-	function saveRecent(emoji: EmojiType) {
-		$recentEmojis = [emoji, ...$recentEmojis.filter((recent) => recent.key !== emoji.key)].slice(
+	function saveRecent(emoji: EmojiType | SubEmoji) {
+		$recentEmojis = [emoji, ...$recentEmojis.filter((recent) => recent.key ?? recent.name !== emoji.key ?? emoji.name)].slice(
 			0,
 			maxRecents
 		);
@@ -150,13 +150,13 @@
 
 <svelte:body on:keydown={onKeyDown} />
 
-<button class="svelte-emoji-picker__trigger" bind:this={triggerButtonEl} on:click={togglePicker}>
+<button class="trigger" bind:this={triggerButtonEl} on:click={togglePicker}>
 	<Icon icon={smileIcon} />
 </button>
 
 {#if pickerVisible}
 	<ClickOutside on:clickoutside={hidePicker} exclude={[triggerButtonEl]}>
-		<div class="svelte-emoji-picker" bind:this={pickerEl} on:keydown={onKeyDown}>
+		<div class="picker" bind:this={pickerEl} on:keydown={onKeyDown}>
 			<EmojiSearch bind:searchText />
 			{#if searchText}
 				<EmojiSearchResults
@@ -207,7 +207,7 @@
 {/if}
 
 <style>
-	.svelte-emoji-picker {
+	.picker {
 		background: #ffffff;
 		border: 1px solid #cccccc;
 		border-radius: 5px;
@@ -217,7 +217,7 @@
 		box-shadow: 0px 0px 3px 1px #cccccc;
 	}
 
-	.svelte-emoji-picker__trigger {
+	.trigger {
 		cursor: pointer;
 	}
 

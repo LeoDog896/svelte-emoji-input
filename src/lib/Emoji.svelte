@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Emoji } from './emoji';
+	import type { Emoji, SubEmoji } from './emoji';
 	import { createEventDispatcher } from 'svelte';
 
-	export let emoji: Emoji;
+	export let emoji: Emoji | SubEmoji;
 
-	const dispatch = createEventDispatcher<{emojiclick: Emoji, emojihover: Emoji | null}>();
+	const dispatch = createEventDispatcher<{emojiclick: Emoji | SubEmoji, emojihover: Emoji | SubEmoji | null}>();
 
 	function onClick() {
 		dispatch('emojiclick', emoji);

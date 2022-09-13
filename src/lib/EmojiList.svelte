@@ -9,7 +9,7 @@
 
 <h3>{name}</h3>
 
-<div class="svelte-emoji-picker__emoji-list" class:tall={!withTabs}>
+<div class="list" class:tall={!withTabs}>
 	{#each emojis as emoji}
 		<Emoji {emoji} on:emojihover on:emojiclick />
 	{/each}
@@ -22,12 +22,12 @@
 		color: #333333;
 	}
 
-	.svelte-emoji-picker__emoji-list {
+	.list {
 		height: 11rem;
 		overflow: scroll;
 	}
 
-	.svelte-emoji-picker__emoji-list.tall {
+	.tall {
 		height: 14.9rem;
 	}
 </style>

@@ -1,10 +1,12 @@
+<svelte:options immutable/>
+
 <script lang="ts">
-	import type { Emoji as EmojiType } from './emoji';
+	import type { Emoji as EmojiType, SubEmoji } from './emoji';
 	import Emoji from './Emoji.svelte';
 
 	export let name = '';
 	export let withTabs = true;
-	export let emojis: EmojiType[] = [];
+	export let emojis: (EmojiType | SubEmoji)[] = [];
 </script>
 
 <h3>{name}</h3>
@@ -23,7 +25,7 @@
 	}
 
 	.list {
-		height: 11rem;
+		height: 14.6rem;
 		overflow: scroll;
 	}
 

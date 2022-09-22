@@ -20,8 +20,8 @@
 	}
 </script>
 
-<div class="svelte-emoji-picker__variants-container" on:click={onClickContainer}>
-	<div class="svelte-emoji-picker__variants">
+<div class="variants-container" on:click={onClickContainer}>
+	<div class="variants">
 		{#each Object.values(variants) as variant}
 			<Emoji emoji={variant} on:emojiclick />
 		{/each}
@@ -32,7 +32,7 @@
 </div>
 
 <style>
-	.svelte-emoji-picker__variants-container {
+	.variants-container {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -44,14 +44,14 @@
 		justify-content: center;
 	}
 
-	.svelte-emoji-picker__variants {
+	.variants {
 		background: #ffffff;
 		margin: 0.5em;
 		padding: 0.5em;
 		text-align: center;
 	}
 
-	.svelte-emoji-picker__variants .close-button {
+	.variants .close-button {
 		position: absolute;
 		font-size: 1em;
 		right: 0.75em;

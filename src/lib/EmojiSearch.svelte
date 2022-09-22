@@ -1,3 +1,5 @@
+<svelte:options immutable/>
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 
@@ -49,6 +51,7 @@
 	}
 
 	.search input {
+    font-family: Verdana, sans-serif;
 		width: 100%;
 		border-radius: 5px;
 	}

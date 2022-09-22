@@ -1,3 +1,5 @@
+<svelte:options immutable/>
+
 <script lang="ts">
 	import type { Emoji, SubEmoji } from './emoji';
 	import { createEventDispatcher } from 'svelte';
@@ -24,8 +26,10 @@
 	on:focus={onMouseOver}
 	on:blur={onMouseOut}
 	on:mouseout={onMouseOut}
-	on:click={onClick}>{emoji.emoji}</button
->
+	on:click={onClick}
+  title={emoji.name.replaceAll("_", " ")}>
+  {emoji.emoji}
+</button>
 
 <style>
 	button {

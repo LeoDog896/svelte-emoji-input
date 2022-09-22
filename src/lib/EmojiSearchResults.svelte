@@ -1,3 +1,5 @@
+<svelte:options immutable/>
+
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
@@ -18,7 +20,7 @@
     if (emoji.names) {
       return emoji.names.find(name => name.includes(processedSearchText))
     } else {
-      emoji.name.includes(processedSearchText)
+      return emoji.name.includes(processedSearchText)
     }
 	});
 

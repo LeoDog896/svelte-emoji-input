@@ -9,7 +9,9 @@ function getEmoji(unified) {
 }
 
 rawData.sort((e1, e2) => e1.sort_order - e2.sort_order);
+let categories = new Set()
 const newEmojiData = rawData.map((emojiItem) => {
+  categories.add(emojiItem.category);
 	const newData = {
 		name: emojiItem.short_name,
 		...(emojiItem.short_names.length === 1 ? {} : { names: emojiItem.short_names }),
@@ -29,5 +31,7 @@ const newEmojiData = rawData.map((emojiItem) => {
 
 	return newData;
 });
+
+console.log(categories)
 
 writeFileSync('src/lib/data/emoji.json', JSON.stringify(newEmojiData));

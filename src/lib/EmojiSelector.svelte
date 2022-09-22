@@ -13,7 +13,6 @@
 	import ClickOutside from 'svelte-click-outside';
 	import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs';
 
-	import EmojiDetail from './EmojiDetail.svelte';
 	import EmojiList from './EmojiList.svelte';
 	import EmojiSearch from './EmojiSearch.svelte';
 	import EmojiSearchResults from './EmojiSearchResults.svelte';
@@ -54,17 +53,6 @@
 		categoryList.push(emoji);
 	});
 
-	const categoryOrder = [
-		'Smileys & Emotion',
-		'Animals & Nature',
-		'Food & Drink',
-		'Activities',
-		'Travel & Places',
-		'Objects',
-		'Symbols',
-		'Flags'
-	];
-
 	const categoryIcons: { [key: string]: IconDefinition } = {
 		'Smileys & Emotion': faSmile,
 		'Animals & Nature': faCat,
@@ -102,13 +90,9 @@
 		}
 	}
 
-	function showEmojiDetails(event: CustomEvent<EmojiType | SubEmoji | null>) {
-		currentEmoji = event.detail;
-	}
-
 	function onEmojiClick(event: CustomEvent<EmojiType | SubEmoji>) {
-		if (event.detail.variants) {
-			variants = event.detail.variants;
+		if ("variants" in event.detail) {
+			variants = event.detail.variants ?? {};
 			variantsVisible = true;
 		} else {
 			dispatch('emoji', event.detail.emoji);
@@ -161,7 +145,6 @@
 			{#if searchText}
 				<EmojiSearchResults
 					{searchText}
-					on:emojihover={showEmojiDetails}
 					on:emojiclick={onEmojiClick}
 				/>
 			{:else}
@@ -169,8 +152,8 @@
 					<Tabs initialSelectedIndex={1}>
 						<TabList>
 							<Tab><Icon icon={faHistory} /></Tab>
-							{#each categoryOrder as category}
-								<Tab><Icon icon={categoryIcons[category]} /></Tab>
+							{#each Object.values(categoryIcons) as icon}
+								<Tab><Icon icon={icon} /></Tab>
 							{/each}
 						</TabList>
 
@@ -178,17 +161,15 @@
 							<EmojiList
 								name="Recently Used"
 								emojis={$recentEmojis}
-								on:emojihover={showEmojiDetails}
 								on:emojiclick={onEmojiClick}
 							/>
 						</TabPanel>
 
-						{#each categoryOrder as category}
+						{#each Object.entries(emojiCategories) as [categoryName, entries]}
 							<TabPanel>
 								<EmojiList
-									name={category}
-									emojis={emojiCategories[category]}
-									on:emojihover={showEmojiDetails}
+									name={categoryName}
+									emojis={entries}
 									on:emojiclick={onEmojiClick}
 								/>
 							</TabPanel>
@@ -200,8 +181,6 @@
 			{#if variantsVisible}
 				<VariantPopup {variants} on:emojiclick={onVariantClick} on:close={hideVariants} />
 			{/if}
-
-			<EmojiDetail emoji={currentEmoji} />
 		</div>
 	</ClickOutside>
 {/if}
@@ -226,11 +205,11 @@
 		height: 15rem;
 	}
 
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs ul.svelte-tabs__tab-list) {
+	.picker :global(.svelte-emoji-picker__emoji-tabs .svelte-tabs ul.svelte-tabs__tab-list) {
 		display: flex;
 	}
 
-	:global(.svelte-emoji-picker__emoji-tabs .svelte-tabs li.svelte-tabs__tab) {
+	.picker :global(.svelte-emoji-picker__emoji-tabs .svelte-tabs li.svelte-tabs__tab) {
 		flex-grow: 1;
 	}
 </style>
